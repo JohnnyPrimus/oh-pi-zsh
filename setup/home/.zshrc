@@ -166,15 +166,30 @@ plugins=(
 fpath+=~/.oh-my-zsh/plugins/zsh-completions/src
 
 export ZSH_CONFIG=~/.zshconfig
+
 export RUST_BACKTRACE="full"
 
-# User configuration
-export JAVA_HOME='/usr/lib/jvm/java-17-openjdk-amd64'
+# Compilation flags
+export ARCHFLAGS=$(uname -m)
+
+# Set Java home for openjdk if it needs setting
+if [ -z ${JAVA_HOME} ]; then
+  if [ -x /usr/lib/jvm/java-17-openjdk-arm64/bin/java ]; then
+    export JAVA_HOME='/usr/lib/jvm/java-17-openjdk-amd64'
+  elif [ -x /usr/lib/jvm/java-21-openjdk-arm64/bin/java ]; then
+    export JAVA_HOME='/usr/lib/jvm/java-21-openjdk-amd64'
+  fi
+fi
+
+# PATH
 export PATH=$HOME/.oh-my-zsh/bin:/usr/bin:/usr/sbin:/usr/local/sbin:$HOME/.local/pipx/bin:$HOME/.local/.bin:$HOME/.local/bin:$HOME/.local/share/bin:usr/local/bin:$JAVA_HOME/bin:/snap/bin:$PATH
+
+# Activate OMZ
 source $ZSH/oh-my-zsh.sh
 
+############
 # User configuration
-
+############
 export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -186,22 +201,34 @@ export LC_LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_MESSAGES=en_US.UTF-8
 
-# Compilation flags
-export ARCHFLAGS=$(uname -m)
-
-# XDG Flatpak Exports
-export XDG_DATA_DIRS=$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
+alias zshconfig="$EDITOR ~/.zshrc"
+alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
+# source any aliases defined in .zshconfig/aliases/ as our last op, overiding everything
+# For a full list of active aliases, run `alias`.                       199 
 for zsh_alias_file in ${ZSH_CONFIG}/aliases/*(.); do source $zsh_alias_file ; done
 
-# Headless/WSL2 only - manually export display env var and then import display environment as 
-# a workaround for freedesktop.Notifications dbus issues
-export DISPLAY=:1
-systemctl --user import-environment DISPLAY
+# XDG Flatpak Exports
+if [ -d /var/lib/flatpak/exports ]; then
+  export XDG_DATA_DIRS=$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share
+fi
 
-source ~/.cargo/bin
-source ~/.autoenv/activate.sh
+# Headless/WSL2 only - manually export display env var
+# and import to all user environments...
+# a workaround for freedesktop.Notifications dbus issues
+if [ -z ${DISPLAY} ]; then
+  export DISPLAY=:1
+  systemctl --user import-environment DISPLAY
+fi
+
+if [ -d ~/.cargo ]; then
+  source ~/.cargo/bin
+fi
+
+if [ -d ~/.autoenv ]; then
+  source ~/.autoenv/activate.sh
+fi
+
