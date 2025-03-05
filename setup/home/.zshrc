@@ -225,7 +225,7 @@ if [ -z ${DISPLAY} ]; then
 fi
 
 if [ -d ~/.cargo ]; then
-  source ~/.cargo/bin
+  source ~/.cargo/env
 fi
 
 if [ -d ~/.autoenv ]; then
