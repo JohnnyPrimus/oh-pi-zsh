@@ -69,6 +69,17 @@ case "$SOURCE" in
 		;;
 esac
 
+case "$CURRENT_VERSION" in
+	"$REQUIRED_MAJOR".*)
+		note "current version is already ${REQUIRED_MAJOR}.x; no update needed"
+		exit 0
+		;;
+	6.*)
+		note "current version is 6.x; skipping update (updates to libc required. need ubuntu 24.04 or debian 13)"
+		exit 0
+		;;
+esac
+
 # --- Sanity-check the package -------------------------------------------------
 dpkg-deb --info "$DEB_FILE" >/dev/null 2>&1 || die "not a valid .deb file: $DEB_FILE"
 
@@ -90,6 +101,7 @@ SUDO=""
 $SUDO dpkg -i "$DEB_FILE" || {
 	note "resolving missing dependencies"
 	$SUDO apt-get install -f -y
+	$SUDO dpkg -i "$DEB_FILE" || die "failed to install $DEB_FILE"
 }
 
 # --- Verify ---------------------------------------------------------------
