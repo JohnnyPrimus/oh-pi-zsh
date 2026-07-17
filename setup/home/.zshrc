@@ -105,7 +105,7 @@ AUTOENV_EDITOR=$EDITOR
 plugins=(
   aliases
   alias-finder
-  autoenv
+#  autoenv
   bgnotify
   colorize
   colored-man-pages
@@ -181,8 +181,13 @@ if [ -z ${JAVA_HOME} ]; then
   fi
 fi
 
-# PATH
-export PATH=$HOME/.oh-my-zsh/bin:/usr/bin:/usr/sbin:/usr/local/sbin:$HOME/.local/pipx/bin:$HOME/.local/.bin:$HOME/.local/bin:$HOME/.local/share/bin:usr/local/bin:$JAVA_HOME/bin:/snap/bin:$PATH
+ # PATH
+export PATH=$HOME/.oh-my-zsh/bin:/usr/bin:/usr/sbin:/usr/local/sbin:$HOME/.local/pipx/bin:$HOME/.local/.bin:$HOME/.local/bin:$>
+
+# If NPM is installed, make sure its bin is in PATH
+if NODE_PATH=$(npm config get prefix); then
+  export PATH=$NODE_PATH/bin:$PATH
+fi
 
 # Activate OMZ
 source $ZSH/oh-my-zsh.sh
@@ -228,7 +233,7 @@ if [ -d ~/.cargo ]; then
   source ~/.cargo/env
 fi
 
-if [ -d ~/.autoenv ]; then
-  source ~/.autoenv/activate.sh
-fi
+#if [ -d ~/.autoenv ]; then
+#  source ~/.autoenv/activate.sh
+#fi
 
