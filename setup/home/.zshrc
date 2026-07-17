@@ -182,7 +182,7 @@ if [ -z ${JAVA_HOME} ]; then
 fi
 
  # PATH
-export PATH=$HOME/.oh-my-zsh/bin:/usr/bin:/usr/sbin:/usr/local/sbin:$HOME/.local/pipx/bin:$HOME/.local/.bin:$HOME/.local/bin:$>
+export PATH=$HOME/.oh-my-zsh/bin:/usr/bin:/usr/sbin:/usr/local/sbin:$HOME/.local/pipx/bin:$HOME/.local/.bin:$HOME/.local/bin:$HOME/.local/share/bin:usr/local/bin:$JAVA_HOME/bin:/snap/bin:$PATH
 
 # If NPM is installed, make sure its bin is in PATH
 if NODE_PATH=$(npm config get prefix); then
