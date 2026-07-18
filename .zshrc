@@ -14,7 +14,11 @@ ZSH_THEME="random"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster", "rkj-repos", "funky" )
 # or read in .themefavorites (run "favtheme" from zsh to add current random
 # theme to favorites
-# ZSH_THEME_RANDOM_CANDIDATES=$(bash -c readarray -t a < ${HOME}/.themefavorites)
+#
+#ZSH_THEME_RANDOM_CANDIDATES=()
+#while IFS= read -r line || [[ "$line" ]] ; do
+#    ZSH_THEME_RANDOM_CANDIDATES+=( "$line" )
+#done < ${HOME}/.themefavorites
 
 # If youd rather define themes that are NOT candidates for
 # RANDOM_THEME, define them in ZSH_THEME_RANDOM_IGNORED
@@ -26,11 +30,15 @@ ZSH_THEME="random"
 # 2) save them one per line in ~/.themeignore and read that in here
 #    (run "ingoretheme" from zsh to automatically add current random theme to 
 #    the ignore list)
-ZSH_THEME_RANDOM_IGNORED=$(bash -c readarray -t a < ${HOME}/.themeignores)
+#
+ZSH_THEME_RANDOM_IGNORED=()
+while IFS= read -r line || [[ "$line" ]] ; do
+    ZSH_THEME_RANDOM_IGNORED+=( "$line" )
+done < ${HOME}/.themeignores
 
- if [[ -z ${RANDOM_THEME} ]]; then
+if [[ -z ${RANDOM_THEME} ]]; then
   export RANDOM_THEME="$RANDOM_THEME"
- fi
+fi
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
