@@ -8,25 +8,43 @@ export LS_COLORS="$(vivid generate snazzy)"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="random"
 
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+export LS_COLORS="$(vivid generate snazzy)"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="random"
+
 # Set list of themes to pick from when loading at random
 # a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster", "rkj-repos", "funky" )
 # or read in .themefavorites (run "favtheme" from zsh to add current random
 # theme to favorites
-# ZSH_THEME_RANDOM_CANDIDATES=$(bash -c readarray -t a < ${HOME}/.themefavorites)
+#
+#ZSH_THEME_RANDOM_CANDIDATES=()
+#while IFS= read -r line || [[ "$line" ]] ; do
+#    ZSH_THEME_RANDOM_CANDIDATES+=( "$line" )
+#done < ${HOME}/.themefavorites
 
 # If youd rather define themes that are NOT candidates for
 # RANDOM_THEME, define them in ZSH_THEME_RANDOM_IGNORED
 # In one of two ways
-#
+# 
 # 1) define them in this rc as a string array, just like candidates above
 # ZSH_THEME_RANDOM_IGNORED=("no_thx_theme", "also_no_plz_theme")
 # or
 # 2) save them one per line in ~/.themeignore and read that in here
 #    (run "ingoretheme" from zsh to automatically add current random theme to 
 #    the ignore list)
-ZSH_THEME_RANDOM_IGNORED=$(bash -c readarray -t a < ${HOME}/.themeignores)
+#
+ZSH_THEME_RANDOM_IGNORED=()
+while IFS= read -r line || [[ "$line" ]] ; do
+    ZSH_THEME_RANDOM_IGNORED+=( "$line" )
+done < ${HOME}/.themeignores
 
  if [[ -z ${RANDOM_THEME} ]]; then
   export RANDOM_THEME="$RANDOM_THEME"
