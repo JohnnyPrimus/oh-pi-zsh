@@ -205,7 +205,20 @@ export PATH=$HOME/.oh-my-zsh/bin:/usr/bin:/usr/sbin:/usr/local/sbin:$HOME/.local
 # If NPM is installed, make sure its bin is in PATH
 if NODE_PATH=$(npm config get prefix); then
   export PATH=$NODE_PATH/bin:$PATH
+  export NVM_DIR="$HOME/.nvm"
+  
+  # Load NVM
+  if [ -s "$NVM_DIR/nvm.sh" ]; then
+    source "$NVM_DIR/nvm.sh"  
+  fi
+
+  # Load NVM bash_completion
+  if [ -s "$NVM_DIR/bash_completion" ]; then
+    source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+  fi
 fi
+
+
 
 # Activate OMZ
 source $ZSH/oh-my-zsh.sh
