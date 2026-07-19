@@ -25,10 +25,10 @@ ZSH_THEME="random"
 # or read in .themefavorites (run "favtheme" from zsh to add current random
 # theme to favorites
 #
-#ZSH_THEME_RANDOM_CANDIDATES=()
-#while IFS= read -r line || [[ "$line" ]] ; do
-#    ZSH_THEME_RANDOM_CANDIDATES+=( "$line" )
-#done < ${HOME}/.themefavorites
+ZSH_THEME_RANDOM_CANDIDATES=()
+while IFS= read -r line || [[ "$line" ]] ; do
+    ZSH_THEME_RANDOM_CANDIDATES+=( "$line" )
+done < ${HOME}/.themefavorites
 
 # If youd rather define themes that are NOT candidates for
 # RANDOM_THEME, define them in ZSH_THEME_RANDOM_IGNORED
@@ -41,14 +41,14 @@ ZSH_THEME="random"
 #    (run "ingoretheme" from zsh to automatically add current random theme to 
 #    the ignore list)
 #
-ZSH_THEME_RANDOM_IGNORED=()
-while IFS= read -r line || [[ "$line" ]] ; do
-    ZSH_THEME_RANDOM_IGNORED+=( "$line" )
-done < ${HOME}/.themeignores
-
- if [[ -z ${RANDOM_THEME} ]]; then
-  export RANDOM_THEME="$RANDOM_THEME"
- fi
+#ZSH_THEME_RANDOM_IGNORED=()
+#while IFS= read -r line || [[ "$line" ]] ; do
+#    ZSH_THEME_RANDOM_IGNORED+=( "$line" )
+#done < ${HOME}/.themeignores
+#
+# if [[ -z ${RANDOM_THEME} ]]; then
+#  export RANDOM_THEME="$RANDOM_THEME"
+# fi
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -202,20 +202,21 @@ fi
  # PATH
 export PATH=$HOME/.oh-my-zsh/bin:/usr/bin:/usr/sbin:/usr/local/sbin:$HOME/.local/pipx/bin:$HOME/.local/.bin:$HOME/.local/bin:$HOME/.local/share/bin:usr/local/bin:$JAVA_HOME/bin:/snap/bin:$PATH
 
+export NVM_DIR="$HOME/.nvm"
+
+# Load NVM
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+  source "$NVM_DIR/nvm.sh"
+fi
+
+# Load NVM bash_completion
+if [ -s "$NVM_DIR/bash_completion" ]; then
+  source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
+
 # If NPM is installed, make sure its bin is in PATH
 if NODE_PATH=$(npm config get prefix); then
   export PATH=$NODE_PATH/bin:$PATH
-  export NVM_DIR="$HOME/.nvm"
-  
-  # Load NVM
-  if [ -s "$NVM_DIR/nvm.sh" ]; then
-    source "$NVM_DIR/nvm.sh"  
-  fi
-
-  # Load NVM bash_completion
-  if [ -s "$NVM_DIR/bash_completion" ]; then
-    source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-  fi
 fi
 
 
