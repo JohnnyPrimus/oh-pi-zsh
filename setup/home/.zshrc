@@ -46,9 +46,12 @@ done < ${HOME}/.themefavorites
 #    ZSH_THEME_RANDOM_IGNORED+=( "$line" )
 #done < ${HOME}/.themeignores
 #
-# if [[ -z ${RANDOM_THEME} ]]; then
-#  export RANDOM_THEME="$RANDOM_THEME"
-# fi
+
+# Whatever the method of determining the random theme, export it now
+# to the RANDOM_THEME
+if [[ -z ${RANDOM_THEME} ]]; then
+ export RANDOM_THEME="$RANDOM_THEME"
+fi
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
