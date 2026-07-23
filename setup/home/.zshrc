@@ -190,6 +190,9 @@ export ZSH_CONFIG=~/.zshconfig
 
 export RUST_BACKTRACE="full"
 
+# Ensure GPG passkey prompts happen on the shell we're signed in to (even if X is running)
+export GPG_TTY=$(tty)
+
 # Compilation flags
 export ARCHFLAGS=$(uname -m)
 
