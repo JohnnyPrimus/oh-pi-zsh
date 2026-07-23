@@ -1,3 +1,3 @@
 sudo apt-get install -y zsh-common zsh-doc zsh-dev zsh tmux tmuxinator pipenv build-essential git \
 git-lfs fzf thefuck vivid buildd python3-venv python3-pip python3 virtualenv pipenv colortail \
-colormake colorized-logs colordiff colorize
+colormake colorized-logs colordiff colorize gpg gpg-agent pinentry-curses 
